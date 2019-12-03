@@ -4,4 +4,5 @@ import App from './app'
 import './style.css'
 
 const container = document.getElementById("app")
-container ? ReactDOM.render(<App />, wrapper) : false
+
+container && ReactDOM.render(<App />, container)

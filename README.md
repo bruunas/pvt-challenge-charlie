@@ -9,7 +9,7 @@
 ```
 
 #### run development mode
-`yarn start`
+`yarn dev`
 
 #### create a build
 `yarn build`
