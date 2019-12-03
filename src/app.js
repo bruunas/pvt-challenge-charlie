@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import Header from './components/Header'
+import Search from './components/search/Search'
+import Background from './components/background/Background'
+import Weather from './components/weather/Weather'
 
 class App extends Component {
   render() {
-    return <Header />
+    return (
+      <>
+        <Background />
+        <Search />
+        <Weather/>
+      </>
+    )
   }
 }
 
