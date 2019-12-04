@@ -6,14 +6,12 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './public',
-    hot: true,
-  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Challenge Charlie'
+      title: 'Challenge Charlie',
+      template: './src/index.html',
+      filename: './index.html'
     })
   ],
   output: {
