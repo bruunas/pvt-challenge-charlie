@@ -1,30 +1,19 @@
 {
   "name": "pvt-challenge-charlie",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/bruunas/pvt-challenge-charlie.git"
-  },
-  "author": "Bruna Santos <brunas.dev@gmail.com>",
-  "license": "MIT",
-  "description": "",
-  "bugs": {
-    "url": "https://github.com/bruunas/pvt-challenge-charlie/issues"
-  },
-  "homepage": "https://github.com/bruunas/pvt-challenge-charlie#readme",
-  "engines": {
-      "node": "10.15.3"
-   },
   "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
-    "axios": "^0.19.0",
     "styled-components": "^4.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
