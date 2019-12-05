@@ -14,8 +14,16 @@ module.exports = {
       filename: './index.html'
     })
   ],
+  devServer: {
+    contentBase: path.join(__dirname, 'src'),
+    compress: true,
+    port: 3000,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  },
   output: {
-    path: path.resolve(__dirname + '/public'),
+    path: path.resolve(__dirname + '/build'),
     filename: 'main.js'
   },
   module: {
