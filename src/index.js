@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom"
-import App from './app'
+import App from './App'
 import './style.css'
+import * as serviceWorker from './serviceWorker';
 import getData from './getData'
 
+
+ReactDOM.render(<App />, document.getElementById("app"));
 getData()
-
-const container = document.getElementById("app")
-
-container && ReactDOM.render(<App />, container)
+serviceWorker.unregister();
