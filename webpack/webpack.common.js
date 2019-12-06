@@ -14,7 +14,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Teste',
+      title: 'Weather Charlie',
       template: path.resolve(PATHS.SRC, 'index.html'),
       chunksSortMode: 'none',
       inject: true
