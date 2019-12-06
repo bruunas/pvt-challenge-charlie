@@ -15,6 +15,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Weather Charlie',
+      favicon: path.resolve(PATHS.SRC, 'favicon.ico'),
       template: path.resolve(PATHS.SRC, 'index.html'),
       chunksSortMode: 'none',
       inject: true
