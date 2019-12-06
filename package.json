@@ -2,6 +2,7 @@
   "name": "pvt-challenge-charlie",
   "version": "1.0.0",
   "private": true,
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/bruunas/pvt-challenge-charlie.git"
@@ -14,28 +15,94 @@
   },
   "homepage": "https://github.com/bruunas/pvt-challenge-charlie#readme",
   "dependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
-    "@babel/preset-react": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-styled-components": "^1.5.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "css-loader": "^0.28.10",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
+    "enzyme-to-json": "^3.1.4",
+    "eslint": "^4.18.2",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.7.0",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
+    "file-loader": "^1.1.7",
+    "html-webpack-plugin": "3.0.6",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
+    "path": "^0.12.7",
+    "prettier": "^1.11.1",
+    "prop-types": "^15.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "styled-components": "^4.4.1",
-    "webpack-cli": "^3.3.10"
+    "react-test-renderer": "^16.0.0",
+    "redux": "^3.7.2",
+    "redux-mock-store": "^1.5.3",
+    "style-loader": "^0.20.3",
+    "styled-components": "^2.2.1",
+    "webpack": "4.1.1",
+    "webpack-cli": "^2.0.12",
+    "webpack-dev-server": "3.1.1",
+    "webpack-merge": "^4.1.1"
   },
-  "devDependencies": {
-    "css-loader": "^3.2.0",
-    "file-loader": "^5.0.2",
-    "style-loader": "^1.0.0",
-    "webpack": "^4.41.2",
-    "webpack-dev-server": "^3.9.0"
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false
+        }
+      ],
+      "stage-1",
+      "react"
+    ],
+    "plugins": [
+      "lodash",
+      "styled-components"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "transform-es2015-modules-commonjs",
+          "dynamic-import-node"
+        ]
+      }
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "react",
+      "promise"
+    ],
+    "rules": {
+      "promise/catch-or-return": "error",
+      "react/jsx-uses-vars": 2,
+      "react/jsx-uses-react": 2,
+      "no-unused-vars": [
+        "error",
+        {
+          "vars": "all",
+          "args": "none",
+          "ignoreRestSiblings": true
+        }
+      ]
+    }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --open --mode development"
+    "build": "webpack --mode production --config webpack/webpack.prod.js",
+    "dev": "webpack-dev-server --mode development --hot --config webpack/webpack.dev.js",
+    "watch": "webpack --watch --color --mode development --config"
   }
 }
