@@ -1,15 +1,7 @@
 import axios from 'axios'
 
 const getImageBing = () => {
-  const config = {
-    headers: {
-      'Access-Control-Allow-Origin': '',
-      'Content-Type': 'application/json'
-    },
-    timeout: 2000
-  }
-
-  return axios.get('https://bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=pt-BR', config)
+  return axios.get('https://bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=pt-BR')
 }
 
 const getWeather = () => {
@@ -21,8 +13,15 @@ const getGeocode = () => {
 }
 
 const getData = () => {
+  const config = {
+    headers: {
+      'Access-Control-Allow-Origin': '',
+      'Content-Type': 'application/json'
+    },
+    timeout: 2000
+  }
 
-  axios.all([getWeather(), getGeocode(), getImageBing()])
+  axios.all([getWeather(), getGeocode(), getImageBing()], config)
   .then(axios.spread((weather, geocode, img) => {
     console.log('getData', weather, geocode, img)
   }));
