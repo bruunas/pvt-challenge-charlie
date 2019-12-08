@@ -1,16 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import styled from 'styled-components'
 import Search from './components/search/Search'
 import Background from './components/background/Background'
 import Weather from './components/weather/Weather'
 
+const Container = styled.div`
+  max-width: 60%;
+  margin: 0 auto;
+`
+
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Container>
         <Background />
         <Search />
         <Weather/>
-      </React.Fragment>
+      </Container>
     )
   }
 }
