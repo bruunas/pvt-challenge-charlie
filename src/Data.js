@@ -5,7 +5,7 @@ const getImageBing = () => {
 }
 
 const getWeather = () => {
-  return axios.get('http://api.openweathermap.org/data/2.5/weather?q=rio%20de%20janeiro&APPID=7ba73e0eb8efe773ed08bfd0627f07b8')
+  return axios.get('https://api.openweathermap.org/data/2.5/weather?q=rio%20de%20janeiro&APPID=7ba73e0eb8efe773ed08bfd0627f07b8')
 }
 
 const getGeocode = () => {
@@ -21,7 +21,7 @@ const getData = () => {
     timeout: 2000
   }
 
-  axios.all([getWeather(), getGeocode(), getImageBing()], config)
+  axios.all([getWeather(), getGeocode()], config)
   .then(axios.spread((weather, geocode, img) => {
     console.log('getData', weather, geocode, img)
   }));
