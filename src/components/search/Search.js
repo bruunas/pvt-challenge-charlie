@@ -7,16 +7,33 @@ const Section = styled.section`
   background: yellow;
 `
 
-const Search = () => {
-  const onHandlerLocale = () => {
-    console.log('onHandlerLocale', event.target.value)
+class Search extends Component {
+
+  state = {
+    location: 'Rio de Janeiro'
   }
 
-  return (
-    <Section>
-      <Input onChange={onHandlerLocale}/>
-    </Section>
-  )
+  onHandlerLocale = () => {
+    const currentVal = event.target.value
+
+    this.setState({
+      location: currentVal
+    })
+  }
+
+  onSubmitForm = () => {
+    event.preventDefault()
+    console.log('onSubmitForm', event.target[0].value)
+
+  }
+
+  render(){
+    return (
+      <Section>
+        <Input onChange={this.onHandlerLocale} onSubmit={this.onSubmitForm}/>
+      </Section>
+    )
+  }
 }
 
 export default Search
