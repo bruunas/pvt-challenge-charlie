@@ -7,5 +7,5 @@ import { Data } from './Data'
 render(
   <App />,
   document.getElementById('app'),
-  console.log('DATA', Data())
+  // console.log('DATA', Data())
 )
