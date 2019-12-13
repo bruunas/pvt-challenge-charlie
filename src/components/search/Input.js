@@ -14,7 +14,7 @@ const Field = styled.input`
 `
 
 const Input = (props) => {
-  const { onChange, onSubmit } = props
+  const { onChange, onSubmit, value } = props
 
   return(
     <form onSubmit={onSubmit}>

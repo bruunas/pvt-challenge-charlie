@@ -8,10 +8,6 @@ const Section = styled.section`
 `
 
 class Search extends Component {
-  state = {
-    location: 'Rio de Janeiro'
-  }
-
   onHandlerLocale = () => {
     const currentVal = event.target.value
 
@@ -25,7 +21,6 @@ class Search extends Component {
     console.log('onSubmitForm', event.target[0].value)
 
   }
-
 
   render(){
     return (
