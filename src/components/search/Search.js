@@ -28,8 +28,6 @@ class Search extends Component {
 
 
   render(){
-    console.log('theme', this.props)
-    
     return (
       <Section>
         <Input onChange={this.onHandlerLocale} onSubmit={this.onSubmitForm}/>
