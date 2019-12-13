@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import styled from 'styled-components'
 import Search from './components/search/Search'
 import Background from './components/background/Background'
 import Weather from './components/weather/Weather'
-import { getCurrentLocale, getWeather, getImageBing } from './Data'
+import { getWeather, getImageBing } from './Data'
+import { setLatLong, setLocation } from './store/location'
 
 const Container = styled.div`
   max-width: 60%;
   margin: 0 auto;
 `
-
 
 const WeatherContext = React.createContext()
 
@@ -24,12 +25,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    getCurrentLocale()
-    getWeather().then(res => {
-      const arr = res.data.list
-
-      this.getWeatherList(arr)
-    })
+    this.getCurrentLocale()
 
     // getImageBing().then(res => console.log(res)).catch(error => {
     //   if (!error.response) {
@@ -38,6 +34,31 @@ class App extends Component {
     //     this.errorStatus = error.response.data.message;
     //   }
     // })
+  }
+
+  getWeather = () => {
+    const { location } = this.props
+
+    getWeather(location.latlong).then(res => {
+      const arr = res.data.list
+
+      this.props.setLocation(res.data.city.name)
+
+      this.getWeatherList(arr)
+    })
+  }
+
+  getCurrentLocale = () => {
+    const { setLatLong } = this.props
+
+    navigator.geolocation.getCurrentPosition((position) => {
+
+      const Lat = position.coords.latitude
+      const Log = position.coords.longitude
+
+      setLatLong([Lat, Log])
+      this.getWeather()
+    });
   }
 
   getWeatherList(arr) {
@@ -75,4 +96,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({location}) => ({location})
+
+export default connect(mapStateToProps, { setLatLong, setLocation })(App);
