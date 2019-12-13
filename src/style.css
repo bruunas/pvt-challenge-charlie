@@ -3,3 +3,8 @@ body{
   font-family: 'Open Sans', sans-serif;
   margin: 0 auto;
 }
+
+* {
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+}
