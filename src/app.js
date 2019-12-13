@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Search from './components/search/Search'
 import Background from './components/background/Background'
 import Weather from './components/weather/Weather'
-import { getCurrentLocale, getWeather } from './Data'
+import { getCurrentLocale, getWeather, getImageBing } from './Data'
 
 const Container = styled.div`
   max-width: 60%;
@@ -11,9 +11,18 @@ const Container = styled.div`
 `
 
 
-const ThemeContext = React.createContext('blue')
+const WeatherContext = React.createContext()
 
 class App extends Component {
+
+  constructor(props){
+    super(props)
+
+    this.state = {
+      weather: {}
+    }
+  }
+
   componentDidMount(){
     getCurrentLocale()
     getWeather().then(res => {
@@ -21,6 +30,14 @@ class App extends Component {
 
       this.getWeatherList(arr)
     })
+
+    // getImageBing().then(res => console.log(res)).catch(error => {
+    //   if (!error.response) {
+    //     this.errorStatus = 'Error: Network Error';
+    //   } else {
+    //     this.errorStatus = error.response.data.message;
+    //   }
+    // })
   }
 
   getWeatherList(arr) {
@@ -30,29 +47,29 @@ class App extends Component {
 
     const firstDayIsCurrentDay = dateDay == firstDay
 
-    const weather = {
-      today: arr[0],
-      tomorrow: firstDayIsCurrentDay ? arr.slice(8, 16)[0] : arr.slice(1, 9)[0],
-      after_tomorrow: firstDayIsCurrentDay ? arr.slice(17, 25)[0] : arr.slice(10, 18)[0]
-    }
-
-    console.log(weather)
+    this.setState({
+      weather: {
+        today: arr[0],
+        tomorrow: firstDayIsCurrentDay ? arr.slice(8, 16)[0] : arr.slice(1, 9)[0],
+        after_tomorrow: firstDayIsCurrentDay ? arr.slice(17, 25)[0] : arr.slice(10, 18)[0]
+      }
+    })
   }
 
   render() {
     return (
       <Container>
-        <ThemeContext.Provider value="dark">
-          <ThemeContext.Consumer>
-            { theme => (
+        <WeatherContext.Provider value={this.state.weather}>
+          <WeatherContext.Consumer>
+            { weather => (
               <div>
                 <Background />
-                <Search theme={theme}/>
-                <Weather/>
+                <Search />
+                <Weather weather={weather} />
               </div>
             )}
-          </ThemeContext.Consumer>
-        </ThemeContext.Provider>
+          </WeatherContext.Consumer>
+        </WeatherContext.Provider>
       </Container>
     )
   }

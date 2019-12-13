@@ -6,7 +6,9 @@ const Section = styled.section`
   background: blue;
 `
 
-const Weather = () => {
+const Weather = ({ weather }) => {
+  console.log('weather', weather)
+
   return <Section />
 }
 
