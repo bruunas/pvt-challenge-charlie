@@ -11,7 +11,7 @@ export const getWeather = (coord) => {
 
   const API_KEY = '7ba73e0eb8efe773ed08bfd0627f07b8'
 
-  const getData = axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${coord[0]}&lon=${coord[1]}&appid=${API_KEY}`)
+  const getData = axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${coord[0]}&lon=${coord[1]}&appid=${API_KEY}&&lang=pt_br`)
 
   return getData
 }
