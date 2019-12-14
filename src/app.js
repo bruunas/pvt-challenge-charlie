@@ -20,7 +20,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      weather: {}
+      weather: []
     }
   }
 
@@ -69,11 +69,11 @@ class App extends Component {
     const firstDayIsCurrentDay = dateDay == firstDay
 
     this.setState({
-      weather: {
-        today: arr[0],
-        tomorrow: firstDayIsCurrentDay ? arr.slice(8, 16)[0] : arr.slice(1, 9)[0],
-        after_tomorrow: firstDayIsCurrentDay ? arr.slice(17, 25)[0] : arr.slice(10, 18)[0]
-      }
+      weather: [
+        {hoje: arr[0]},
+        {amanha: firstDayIsCurrentDay ? arr.slice(8, 16)[0] : arr.slice(1, 9)[0]},
+        {depois_de_amanha: firstDayIsCurrentDay ? arr.slice(17, 25)[0] : arr.slice(10, 18)[0]}
+      ]
     })
   }
 
