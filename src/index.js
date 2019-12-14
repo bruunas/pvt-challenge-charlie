@@ -1,11 +1,21 @@
 import React from "react";
 import { render } from 'react-dom'
+import { Provider } from "react-redux";
+import { createStore, combineReducers } from 'redux'
 import App from './app'
 import './style.css'
 import { Data } from './Data'
 
+import * as reducers from './store';
+
+const rootReducer = combineReducers(reducers)
+
+export const store = createStore(rootReducer);
+
+
 render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app'),
-  // console.log('DATA', Data())
 )
