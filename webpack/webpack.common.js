@@ -42,8 +42,12 @@ module.exports = {
         loader: 'file-loader??name=images/[name]-[hash].[ext]'
       },
       {
-        test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
