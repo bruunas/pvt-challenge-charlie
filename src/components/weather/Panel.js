@@ -3,7 +3,6 @@ import styled, {css} from 'styled-components'
 import variable from '../../variable'
 
 const Container = styled.div`
-  height: 340px;
   background-color: ${props => props.theme};
   color: ${variable.color.white};
 `
@@ -11,6 +10,14 @@ const Container = styled.div`
 const Head = styled.div`
   height: 116px;
   padding: 12px 0;
+`
+
+const Content = styled.div`
+  max-height: 0;
+  overflow: hidden;
+  height: 224px;
+
+  ${ props => props.active && `max-height: 100%;`}
 `
 
 const Title = styled.h2`
@@ -55,7 +62,7 @@ const Description = styled.p`
   margin-bottom: 25px;
 `
 
-const Panel = ({ data, idx }) => {
+const Panel = ({ data, idx, onClick, active }) => {
   const title = Object.keys(data)[0].replace('_', ' ').replace('_', ' ')
   const dataObj = Object.values(data)
   
@@ -68,7 +75,6 @@ const Panel = ({ data, idx }) => {
   const convertToF = `${parseInt((temp - 273.15) * 9/5 + 32)}°F`
 
   const [internationalTemp, setInternationalTemp] = useState(false)
-
   const [temperatureTheme, setTemperatureTheme] = useState('yellow')
 
   if(tempCelsius < 15) {
@@ -80,7 +86,7 @@ const Panel = ({ data, idx }) => {
   }
 
   return (
-    <Container theme={variable.color[temperatureTheme][idx]}>
+    <Container theme={variable.color[temperatureTheme][idx]} onClick={() => onClick()}>
       <div css={`width: 240px;`}>
         <Head>
           <Title>{ title }</Title>
@@ -89,13 +95,15 @@ const Panel = ({ data, idx }) => {
             <span className='temp-fahrenheit'>{convertToF}</span>
           </Temperature>
         </Head>
-        <Description>
-          { weather[0].description }
-        </Description>
+        <Content active={active}>
+          <Description>
+            { weather[0].description }
+          </Description>
 
-        <p>Pressão: {pressure}hPA</p>
-        <p>Humidade: {humidity}%</p>
-        <p>Vento: {wind.speed}km/h</p>
+          <p>Pressão: {pressure}hPA</p>
+          <p>Humidade: {humidity}%</p>
+          <p>Vento: {wind.speed}km/h</p>
+        </Content>
       </div>
     </Container>
   )
