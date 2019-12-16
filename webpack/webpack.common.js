@@ -37,16 +37,20 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.png$/,
+        test: /\.(png|jp(e*)g|svg)$/,
         include: [PATHS.SRC],
         loader: 'file-loader??name=images/[name]-[hash].[ext]'
       },
       {
-        test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ]
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        test: /\.(eot|ttf|woff|woff2|otf)$/,
         loader: 'file-loader?name=fonts/[name]-[hash].[ext]'
       }
     ]

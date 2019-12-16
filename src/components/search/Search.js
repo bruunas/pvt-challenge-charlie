@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import Input from './Input'
 
 const Section = styled.section`
-  height: 200px;
-  background: yellow;
 `
 
 class Search extends Component {
