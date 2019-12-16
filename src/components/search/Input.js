@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import variable from '../../variable'
 
 const Field = styled.input`
   height: 100px;
@@ -7,6 +8,8 @@ const Field = styled.input`
   font-weight: 700;
   width: 100%;
   padding: 0 48px 0 98px;
+  background: ${variable.color.light};
+  border: 0;
 
   &:focus{
     outline: none;

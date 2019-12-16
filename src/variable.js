@@ -2,6 +2,7 @@ export default {
   color: {
     white: '#FFFFFF',
     gray: '#B0B0B0',
+    light: 'rgba(255, 255, 255, 0.8)',
     yellow: {
       0: 'rgba(247, 202, 24, 0.7)',
       1: 'rgba(245, 215, 110, 0.7)',
