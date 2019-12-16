@@ -1,10 +1,20 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components'
 import variable from '../../variable'
+import image_01d from '../../assets/images/image_01d.svg'
+import image_50d from '../../assets/images/image_50d.svg'
+import image_13d from '../../assets/images/image_13d.svg'
+import image_11d from '../../assets/images/image_11d.svg'
+import image_10d from '../../assets/images/image_10d.svg'
+import image_09d from '../../assets/images/image_09d.svg'
+import image_04d from '../../assets/images/image_04d.svg'
+import image_03d from '../../assets/images/image_03d.svg'
+import image_02d from '../../assets/images/image_02d.svg'
 
 const Container = styled.div`
   background-color: ${props => props.theme};
   color: ${variable.color.white};
+  display: flex;
 `
 
 const Head = styled.div`
@@ -62,7 +72,23 @@ const Description = styled.p`
   margin-bottom: 25px;
 `
 
+const Figure = styled.figure`
+  width: 55%;
+  height: 340px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  max-height: 0;
+
+  ${ props => props.icon && (`
+    background-image: url(${image_01d});
+  `)}
+
+  ${ props => props.active && `max-height: 100%;`}
+`
+
 const Panel = ({ data, idx, onClick, active }) => {
+
   const title = Object.keys(data)[0].replace('_', ' ').replace('_', ' ')
   const dataObj = Object.values(data)
   
@@ -85,9 +111,12 @@ const Panel = ({ data, idx, onClick, active }) => {
     setTemperatureTheme('red')
   }
 
+  const dataIcon = dataObj[0].weather[0].icon
+
   return (
-    <Container theme={variable.color[temperatureTheme][idx]} onClick={() => onClick()}>
-      <div css={`width: 240px;`}>
+    <Container theme={variable.color[temperatureTheme][idx]} onClick={onClick}>
+      <Figure icon={`image_${dataIcon}`} active={active}></Figure>
+      <div css={`width: 40%;`}>
         <Head>
           <Title>{ title }</Title>
           <Temperature onClick={() => setInternationalTemp(!internationalTemp)} internationalTemp={internationalTemp}>
