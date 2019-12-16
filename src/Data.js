@@ -17,7 +17,7 @@ export const getWeather = (coord) => {
 }
 
 export const getImageBing = () => {
-  return axios.get('https://bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=pt-BR', config)
+  return axios.get('/api/v1/bing')
 }
 
 export const getGeocode = () => {
