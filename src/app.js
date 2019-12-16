@@ -27,13 +27,13 @@ class App extends Component {
   componentDidMount(){
     this.getCurrentLocale()
 
-    // getImageBing().then(res => console.log(res)).catch(error => {
-    //   if (!error.response) {
-    //     this.errorStatus = 'Error: Network Error';
-    //   } else {
-    //     this.errorStatus = error.response.data.message;
-    //   }
-    // })
+    getImageBing().then(res => console.log(res.data)).catch(error => {
+      if (!error.response) {
+        this.errorStatus = 'Error: Network Error';
+      } else {
+        this.errorStatus = error.response.data.message;
+      }
+    })
   }
 
   getWeather = () => {
