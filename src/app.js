@@ -8,8 +8,7 @@ import { getWeather, getImageBing } from './Data'
 import { setLatLong, setLocation } from './store/location'
 
 const Container = styled.div`
-  max-width: 60%;
-  margin: 0 auto;
+  background: url(${props => props.background})
 `
 
 const WeatherContext = React.createContext()
@@ -20,14 +19,23 @@ class App extends Component {
     super(props)
 
     this.state = {
-      weather: []
+      weather: [],
+      background: null
     }
   }
 
   componentDidMount(){
     this.getCurrentLocale()
 
-    getImageBing().then(res => console.log(res.data)).catch(error => {
+    getImageBing().then( (res) => {
+
+      const { url, copyright} = res.data.images[0]
+
+      this.setState({
+        background: `https://www.bing.com${url}`
+      })
+
+    }).catch(error => {
       if (!error.response) {
         this.errorStatus = 'Error: Network Error';
       } else {
@@ -78,19 +86,26 @@ class App extends Component {
   }
 
   render() {
+    const { background } = this.state
+
     return (
-      <Container>
-        <WeatherContext.Provider value={this.state.weather}>
-          <WeatherContext.Consumer>
-            { weather => (
-              <div>
-                <Background />
-                <Search />
-                <Weather weather={weather} />
-              </div>
-            )}
-          </WeatherContext.Consumer>
-        </WeatherContext.Provider>
+      <Container background={ background && background}>
+        <div className='content' css={`
+          max-width: 60%;
+          margin: 0 auto;
+        `}>
+          <WeatherContext.Provider value={this.state.weather}>
+            <WeatherContext.Consumer>
+              { weather => (
+                <div>
+                  <Background />
+                  <Search />
+                  <Weather weather={weather} />
+                </div>
+              )}
+            </WeatherContext.Consumer>
+          </WeatherContext.Provider>
+        </div>
       </Container>
     )
   }
