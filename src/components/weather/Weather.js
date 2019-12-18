@@ -9,6 +9,8 @@ const Section = styled.section`
 
 
 const Weather = ({ weather }) => {
+  if( !weather ){ return null}
+
   const [panelActive, setPanelActive] = useState(0)
 
   return (
