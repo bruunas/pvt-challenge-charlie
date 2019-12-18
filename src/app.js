@@ -4,11 +4,17 @@ import styled from 'styled-components'
 import Search from './components/search/Search'
 import Background from './components/background/Background'
 import Weather from './components/weather/Weather'
+import Loading from './components/Loading/Loading'
 import { getWeather, getImageBing } from './Data'
 import { setLatLong, setLocation } from './store/location'
 
 const Container = styled.div`
-  background: url(${props => props.background})
+  background: url(${props => props.background});
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
 `
 
 const WeatherContext = React.createContext()
@@ -19,8 +25,9 @@ class App extends Component {
     super(props)
 
     this.state = {
-      weather: [],
-      background: null
+      weather: null,
+      background: null,
+      loading: true
     }
   }
 
@@ -28,8 +35,7 @@ class App extends Component {
     this.getCurrentLocale()
 
     getImageBing().then( (res) => {
-
-      const { url, copyright} = res.data.images[0]
+      const { url } = res.data.images[0]
 
       this.setState({
         background: `https://www.bing.com${url}`
@@ -42,7 +48,7 @@ class App extends Component {
         this.errorStatus = error.response.data.message;
       }
     })
-  }
+  } 
 
   getWeather = () => {
     const { location } = this.props
@@ -86,12 +92,15 @@ class App extends Component {
   }
 
   render() {
-    const { background } = this.state
 
+    const { background, weather  } = this.state
+
+    if( !background && !weather){ return <Loading />}
+    
     return (
       <Container background={ background && background}>
         <div className='content' css={`
-          max-width: 60%;
+          width: 60%;
           margin: 0 auto;
         `}>
           <WeatherContext.Provider value={this.state.weather}>

@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
+import Loadable from 'react-loadable';
 import variable from '../../variable'
-import image_01d from '../../assets/images/image_01d.svg'
-import image_50d from '../../assets/images/image_50d.svg'
-import image_13d from '../../assets/images/image_13d.svg'
-import image_11d from '../../assets/images/image_11d.svg'
-import image_10d from '../../assets/images/image_10d.svg'
-import image_09d from '../../assets/images/image_09d.svg'
-import image_04d from '../../assets/images/image_04d.svg'
-import image_03d from '../../assets/images/image_03d.svg'
-import image_02d from '../../assets/images/image_02d.svg'
+// import IconWeather from './Icon'
 
 const Container = styled.div`
   background-color: ${props => props.theme};
@@ -73,19 +66,25 @@ const Description = styled.p`
 `
 
 const Figure = styled.figure`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 55%;
   height: 340px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   max-height: 0;
-
-  ${ props => props.icon && (`
-    background-image: url(${image_01d});
-  `)}
+  overflow: hidden;
+  padding: 35px 0;
 
   ${ props => props.active && `max-height: 100%;`}
+
+  img{
+    max-height: 100%;
+  }
 `
+
 
 const Panel = ({ data, idx, onClick, active }) => {
 
@@ -103,6 +102,7 @@ const Panel = ({ data, idx, onClick, active }) => {
   const [internationalTemp, setInternationalTemp] = useState(false)
   const [temperatureTheme, setTemperatureTheme] = useState('yellow')
 
+
   if(tempCelsius < 15) {
     setTemperatureTheme('blue')
   } 
@@ -113,9 +113,29 @@ const Panel = ({ data, idx, onClick, active }) => {
 
   const dataIcon = dataObj[0].weather[0].icon
 
+  const Loading = (props) => {
+    if (props.error) {
+      return <div>Error! <button onClick={ props.retry }>Retry</button></div>;
+    } else {
+      return <div>Loading...</div>;
+    }
+  }
+
+
+  const IconWeather = Loadable({
+    loader: () => import(`../../assets/images/image_${dataIcon}.svg`),
+    loading: Loading,
+    render(url, props){
+      return <img src={url.default} />
+    }
+  })
+
+  
   return (
     <Container theme={variable.color[temperatureTheme][idx]} onClick={onClick}>
-      <Figure icon={`image_${dataIcon}`} active={active}></Figure>
+      <Figure active={active}>
+        <IconWeather alt={weather[0].description}></IconWeather>
+      </Figure>
       <div css={`width: 40%;`}>
         <Head>
           <Title>{ title }</Title>
