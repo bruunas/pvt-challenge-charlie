@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Loadable from 'react-loadable';
 import variable from '../../variable'
-// import IconWeather from './Icon'
 
 const Container = styled.div`
   background-color: ${props => props.theme};
   color: ${variable.color.white};
   display: flex;
+
+  @media (max-width: ${variable.grid.mobile}px){
+    flex-direction: column-reverse;
+  }
 `
 
 const Head = styled.div`
@@ -21,6 +24,10 @@ const Content = styled.div`
   height: 224px;
 
   ${ props => props.active && `max-height: 100%;`}
+  
+  @media (max-width: ${variable.grid.mobile}px){
+    height: auto;
+  }
 `
 
 const Title = styled.h2`
@@ -65,6 +72,7 @@ const Description = styled.p`
   margin-bottom: 25px;
 `
 
+
 const Figure = styled.figure`
   display: flex;
   align-items: center;
@@ -82,6 +90,20 @@ const Figure = styled.figure`
 
   img{
     max-height: 100%;
+    max-width: 100%;
+  }
+
+  @media (max-width: ${variable.grid.mobile}px){
+    width: 100%;
+  }
+`
+
+const Infos = styled.div`
+  width: 40%;
+
+  @media (max-width: ${variable.grid.mobile}px){
+    width: 100%;
+    text-align: center;
   }
 `
 
@@ -136,7 +158,7 @@ const Panel = ({ data, idx, onClick, active }) => {
       <Figure active={active}>
         <IconWeather alt={weather[0].description}></IconWeather>
       </Figure>
-      <div css={`width: 40%;`}>
+      <Infos>
         <Head>
           <Title>{ title }</Title>
           <Temperature onClick={() => setInternationalTemp(!internationalTemp)} internationalTemp={internationalTemp}>
@@ -153,7 +175,7 @@ const Panel = ({ data, idx, onClick, active }) => {
           <p>Humidade: {humidity}%</p>
           <p>Vento: {wind.speed}km/h</p>
         </Content>
-      </div>
+      </Infos>
     </Container>
   )
 }
