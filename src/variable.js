@@ -2,7 +2,7 @@ export default {
   color: {
     black: '#000000',
     white: '#FFFFFF',
-    gray: '#B0B0B0',
+    gray: '#8a8987',
     light: 'rgba(255, 255, 255, 0.8)',
     yellow: {
       0: 'rgba(247, 202, 24, 0.9)',
@@ -19,5 +19,8 @@ export default {
       1: 'rgba(225, 28, 58, 0.9)',
       2: 'rgba(225, 60, 62, 0.9)'
     }
+  },
+  grid: {
+    mobile: 1024
   }
 }
