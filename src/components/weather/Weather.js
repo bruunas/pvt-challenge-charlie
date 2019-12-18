@@ -1,12 +1,5 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import Panel from './Panel'
-
-const Section = styled.section`
-  
-`
-
-
 
 const Weather = ({ weather }) => {
   if( !weather ){ return null}
@@ -14,7 +7,7 @@ const Weather = ({ weather }) => {
   const [panelActive, setPanelActive] = useState(0)
 
   return (
-    <Section>
+    <section>
       { 
         weather.map((item, idx) =>  (
           <Panel 
@@ -26,7 +19,7 @@ const Weather = ({ weather }) => {
           />
         ))
       }
-    </Section>
+    </section>
   )
 }
 

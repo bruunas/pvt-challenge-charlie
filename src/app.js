@@ -9,7 +9,12 @@ import { getWeather, getImageBing } from './Data'
 import { setLatLong, setLocation } from './store/location'
 
 const Container = styled.div`
-  background: url(${props => props.background})
+  background: url(${props => props.background});
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
 `
 
 const WeatherContext = React.createContext()
@@ -95,7 +100,7 @@ class App extends Component {
     return (
       <Container background={ background && background}>
         <div className='content' css={`
-          max-width: 60%;
+          width: 60%;
           margin: 0 auto;
         `}>
           <WeatherContext.Provider value={this.state.weather}>
