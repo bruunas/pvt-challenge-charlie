@@ -20,8 +20,8 @@ export const getImageBing = () => {
   return axios.get('/api/v1/bing')
 }
 
-export const getGeocode = () => {
-  return axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${defaultCity}&key=c63386b4f77e46de817bdf94f552cddf&language=en`)
+export const getGeocode = (str) => {
+  return axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${str}&key=c63386b4f77e46de817bdf94f552cddf&language=en`)
 }
 
 const Data = (props) => {

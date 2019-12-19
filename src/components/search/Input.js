@@ -29,29 +29,20 @@ const Field = styled.input`
   }
 `
 
-const Input = (props) => {
-  const { onChange, onSubmit, initialValue } = props
-  const [fieldVal, setFieldVal] = useState('Rio de Janeiro')
-
-  useEffect(() => {
-    setFieldVal(initialValue.location)
-  }, [initialValue])
-
-  const handlerField = (event, callback) => {
-    setFieldVal(event.target.value)
-    callback()
-  }
+const Input = React.forwardRef((props, ref) => {
+  const { onChange, onSubmit } = props
 
   return(
     <form onSubmit={onSubmit}>
       <Field 
         type='text' 
         placeholder='Escolha uma localidade' 
-        onChange={(e) => handlerField(e, onChange)}
-        value={fieldVal}
+        onChange={onChange}
+        ref={ref}
+        value={props.value}
       />
     </form>
   )
-}
+})
 
 export default Input 

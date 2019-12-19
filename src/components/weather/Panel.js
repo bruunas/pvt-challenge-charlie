@@ -161,6 +161,7 @@ const Panel = ({ data, idx, onClick, active, title }) => {
 
   const Loading = (props) => {
     if (props.error) {
+      console.log('Loading Error! ', props.error); 
       return <div>Error! <button onClick={ props.retry }>Retry</button></div>;
     } else {
       return <div>Loading...</div>;
