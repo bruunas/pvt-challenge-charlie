@@ -1,12 +1,29 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import styled, {keyframes} from 'styled-components'
 import Loadable from 'react-loadable';
 import variable from '../../variable'
+import PanelDisabled from './PanelDisabled'
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`
 
 const Container = styled.div`
   background-color: ${props => props.theme};
   color: ${variable.color.white};
   display: flex;
+  opacity: 0;
+
+  ${props => props.active && (`
+    animation: ${fadeIn} 800ms ease;
+    animation-fill-mode: forwards;
+  `)}
 
   @media (max-width: ${variable.grid.mobile}px){
     flex-direction: column-reverse;
@@ -108,13 +125,15 @@ const Infos = styled.div`
 `
 
 
-const Panel = ({ data, idx, onClick, active }) => {
+const Panel = ({ data, idx, onClick, active, title }) => {
 
-  const title = Object.keys(data)[0].replace('_', ' ').replace('_', ' ')
-  const dataObj = Object.values(data)
+
+  const dataObj = Object.values(data).length
+
+  if( !dataObj ){ return <PanelDisabled title={title} />}
   
-  const { wind, weather } = dataObj[0]
-  const { temp, pressure, humidity } = dataObj[0].main
+  const { wind, weather } = data[0]
+  const { temp, pressure, humidity } = data[0].main
 
   const tempCelsius = parseInt(temp - 273.15)
 
@@ -123,6 +142,11 @@ const Panel = ({ data, idx, onClick, active }) => {
 
   const [internationalTemp, setInternationalTemp] = useState(false)
   const [temperatureTheme, setTemperatureTheme] = useState('yellow')
+  const [moduleActive, setModuleActive] = useState(false)
+  
+  useEffect( () => {
+    setModuleActive(true)
+  }, [])
 
 
   if(tempCelsius < 15) {
@@ -133,7 +157,7 @@ const Panel = ({ data, idx, onClick, active }) => {
     setTemperatureTheme('red')
   }
 
-  const dataIcon = dataObj[0].weather[0].icon
+  const dataIcon = data[0].weather[0].icon
 
   const Loading = (props) => {
     if (props.error) {
@@ -143,20 +167,19 @@ const Panel = ({ data, idx, onClick, active }) => {
     }
   }
 
-
   const IconWeather = Loadable({
     loader: () => import(`../../assets/images/image_${dataIcon}.svg`),
     loading: Loading,
-    render(url, props){
-      return <img src={url.default} />
-    }
+    render( url ){ return <img src={url.default} /> }
   })
 
-  
   return (
-    <Container theme={variable.color[temperatureTheme][idx]} onClick={onClick}>
+    <Container 
+      theme={variable.color[temperatureTheme][idx]}
+      active={moduleActive}
+      onClick={onClick}>
       <Figure active={active}>
-        <IconWeather alt={weather[0].description}></IconWeather>
+        <IconWeather></IconWeather>
       </Figure>
       <Infos>
         <Head>
