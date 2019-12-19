@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import variable from '../../variable'
 import Icon from '../../assets/images/icon-search.svg'
@@ -30,14 +30,25 @@ const Field = styled.input`
 `
 
 const Input = (props) => {
-  const { onChange, onSubmit, value } = props
+  const { onChange, onSubmit, initialValue } = props
+  const [fieldVal, setFieldVal] = useState('Rio de Janeiro')
+
+  useEffect(() => {
+    setFieldVal(initialValue.location)
+  }, [initialValue])
+
+  const handlerField = (event, callback) => {
+    setFieldVal(event.target.value)
+    callback()
+  }
 
   return(
     <form onSubmit={onSubmit}>
       <Field 
         type='text' 
         placeholder='Escolha uma localidade' 
-        onChange={onChange}
+        onChange={(e) => handlerField(e, onChange)}
+        value={fieldVal}
       />
     </form>
   )
