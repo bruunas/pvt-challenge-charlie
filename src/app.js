@@ -7,6 +7,7 @@ import Weather from './components/weather/Weather'
 import Loading from './components/Loading/Loading'
 import { getWeather, getImageBing } from './Data'
 import { setLatLong, setLocation } from './store/location'
+import { setDataWeather } from './store/weather'
 
 const Container = styled.div`
   background: url(${props => props.background}) no-repeat center;
@@ -33,7 +34,6 @@ class App extends Component {
     super(props)
 
     this.state = {
-      weather: null,
       background: null,
       loading: true
     }
@@ -65,8 +65,7 @@ class App extends Component {
       const arr = res.data.list
 
       this.props.setLocation(res.data.city.name)
-
-      this.getWeatherList(arr)
+      this.props.setDataWeather(arr)
     })
   }
 
@@ -83,48 +82,23 @@ class App extends Component {
     });
   }
 
-  getWeatherList(arr) {
-    const date = new Date()
-    const dateDay = date.getDate()
-    const firstDay = new Date(arr[0].dt_txt).getDate()
-
-    const firstDayIsCurrentDay = dateDay == firstDay
-
-    this.setState({
-      weather: [
-        {hoje: arr[0]},
-        {amanha: firstDayIsCurrentDay ? arr.slice(8, 16)[0] : arr.slice(1, 9)[0]},
-        {depois_de_amanha: firstDayIsCurrentDay ? arr.slice(17, 25)[0] : arr.slice(10, 18)[0]}
-      ]
-    })
-  }
-
   render() {
-
     const { background, weather  } = this.state
 
     if( !background && !weather){ return <Loading />}
     
     return (
       <Container background={ background && background}>
-        <Content className='content'>
-          <WeatherContext.Provider value={this.state.weather}>
-            <WeatherContext.Consumer>
-              { weather => (
-                <div>
-                  <Background />
-                  <Search />
-                  <Weather weather={weather} />
-                </div>
-              )}
-            </WeatherContext.Consumer>
-          </WeatherContext.Provider>
+        <Content>
+          <Background />
+          <Search />
+          <Weather />
         </Content>
       </Container>
     )
   }
 }
 
-const mapStateToProps = ({location}) => ({location})
+const mapStateToProps = ({location, weather}) => ({location, weather})
 
-export default connect(mapStateToProps, { setLatLong, setLocation })(App);
+export default connect(mapStateToProps, { setLatLong, setLocation, setDataWeather })(App);

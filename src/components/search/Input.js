@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import variable from '../../variable'
 import Icon from '../../assets/images/icon-search.svg'
@@ -29,8 +29,8 @@ const Field = styled.input`
   }
 `
 
-const Input = (props) => {
-  const { onChange, onSubmit, value } = props
+const Input = React.forwardRef((props, ref) => {
+  const { onChange, onSubmit } = props
 
   return(
     <form onSubmit={onSubmit}>
@@ -38,9 +38,11 @@ const Input = (props) => {
         type='text' 
         placeholder='Escolha uma localidade' 
         onChange={onChange}
+        ref={ref}
+        value={props.value}
       />
     </form>
   )
-}
+})
 
 export default Input 
