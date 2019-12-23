@@ -26,8 +26,6 @@ const Content = styled.div`
   padding: 12px;
 `
 
-const WeatherContext = React.createContext()
-
 class App extends Component {
 
   constructor(props){
@@ -90,7 +88,6 @@ class App extends Component {
     return (
       <Container background={ background && background}>
         <Content>
-          <Background />
           <Search />
           <Weather />
         </Content>
