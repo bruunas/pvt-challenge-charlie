@@ -30,3 +30,23 @@ Open the browser on `localhost:9000`
 ```
 
 Open the browser on `http://0.0.0.0:49160/`
+
+----------
+
+*Tecnologias usadas:*
+
+- Webpack
+- Node e Express
+- Docker
+- Heroku
+- React 
+- React Hooks
+- Redux
+- Styled Component
+
+
+*Metodologias de desenvolvimento:*
+
+- Kanban no Trello (https://trello.com/b/1KwbxNix/challenge-charlie)
+- Gitflow no Github
+
