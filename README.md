@@ -1,6 +1,6 @@
 # Desafio Charlie
 
-#### setup
+###  setup
 
 ```
   git clone git@github.com:bruunas/pvt-challenge-charlie.git
