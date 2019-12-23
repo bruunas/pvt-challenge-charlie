@@ -1,7 +1,8 @@
 FROM node:10
-WORKDIR /usr/src
+WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install
 COPY . .
+RUN npm install
+RUN npm run build
 EXPOSE 8080
 CMD [ "node", "spa-server.js" ]
