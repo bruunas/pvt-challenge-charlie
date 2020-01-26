@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import styled from 'styled-components'
 import Search from './components/search/Search'
-import Background from './components/background/Background'
 import Weather from './components/weather/Weather'
 import Loading from './components/Loading/Loading'
 import { getWeather, getImageBing } from './Data'
