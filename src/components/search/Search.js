@@ -22,20 +22,6 @@ class Search extends Component {
     }
   }
   
-  
-  componentDidUpdate(prevProps){
-    const prevLocation = prevProps.location.location
-    const currentLocation = this.props.location.location
-    
-    if(!prevLocation.length && currentLocation.length){
-    
-      this.setState({
-        loadingBrowserLocation: true,
-        location: this.props.location.location
-      })
-    }
-  }
-  
   onHandlerLocale = () => {
     const currentVal = event.target.value
     
@@ -57,13 +43,16 @@ class Search extends Component {
     
     getGeocode(currentVal).then(res => {
       const geoCode = Object.values(res.data.results[0].geometry)
-            
+
       getWeather(geoCode).then((res) => {
         const arr = res.data.list
+        console.log('SUCCESS', res.data, arr)
         
         this.props.setLocation(res.data.city.name)
         this.props.setDataWeather(arr)
       }).catch(error => {
+        console.log('ERROR', error)
+        
         if (!error.response) {
           this.errorStatus = 'Error: Network Error';
         } else {
@@ -74,6 +63,7 @@ class Search extends Component {
 
         return null
       })
+
     }).catch(error => {
         if (!error.response) {
           this.errorStatus = 'Error: Network Error';

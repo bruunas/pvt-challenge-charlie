@@ -127,16 +127,16 @@ const Infos = styled.div`
 
 const Panel = ({ data, idx, onClick, active, title }) => {
 
-
   const dataObj = Object.values(data).length
 
   if( !dataObj ){ return <PanelDisabled title={title} />}
-  
-  const { wind, weather } = data[0]
-  const { temp, pressure, humidity } = data[0].main
+
+  const { wind, weather, main } = data
+  const { temp, pressure, humidity } = main
+  const dataIcon = weather[0].icon
 
   const tempCelsius = parseInt(temp - 273.15)
-
+  
   const convertToC = `${tempCelsius}°C`
   const convertToF = `${parseInt((temp - 273.15) * 9/5 + 32)}°F`
 
@@ -156,8 +156,6 @@ const Panel = ({ data, idx, onClick, active, title }) => {
   if( tempCelsius > 35){
     setTemperatureTheme('red')
   }
-
-  const dataIcon = data[0].weather[0].icon
 
   const Loading = (props) => {
     if (props.error) {

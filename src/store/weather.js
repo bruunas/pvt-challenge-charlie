@@ -28,11 +28,10 @@ export default function reducer (
     switch (action.type) {
       case SET_DATA_WEATHER:
         const { weather } = action
-      
-        const dateToday = weather.filter( (i, idx) => idx === 0 && i)
-        const dateTomorrow = weather.filter( (i) => findDataGroup(i, 1))
 
-        const dataAfterTomorrow = weather.filter( (i) => findDataGroup(i, 2))
+        const dateToday = {...weather[0]}
+        const dateTomorrow = {...weather.filter( (i) => findDataGroup(i, 1)).slice(0, 1)[0]}
+        const dataAfterTomorrow = {...weather.filter( (i) => findDataGroup(i, 2)).slice(0, 1)[0]}
         
         return {
           ...state,
